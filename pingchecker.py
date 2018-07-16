@@ -22,6 +22,8 @@ class Window(Frame):
         self.init_window()
         self.pingList = []#list containing the ping for each IP +"ms"
         self.serverList = []#list containing all IPs. stored as a string
+        self.pingResults = ""#results from the mass ping of all the IPs, initially nothing
+        #since the IP file has not been read in.
 
     #creation of init window inside this frame
     def init_window(self):
@@ -56,8 +58,7 @@ class Window(Frame):
 
         self.text.configure(state="disabled")
 
-        #ping results to save to file, does not exit until file is opened.
-        self.pingResults = ""
+
 
 
         #menu initialisation for "file"
