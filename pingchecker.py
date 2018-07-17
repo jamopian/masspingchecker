@@ -137,6 +137,12 @@ class Window(Frame):
 
     #file open dialog
     def file_open(self):
+        if(self.text.get(1.0, END) is not None):#if there's text already in the textbox, i.e. a file has already
+            #been opened.
+            self.clearText()
+            self.pingList.clear()#clear ping list and server list every time a new file is opened,
+            #if not the pinglist and serverlist will still have the old file info.
+            self.serverList.clear()
 
         filename =  filedialog.askopenfilename( initialdir="C:/", title="Select file",
                                            filetypes=(("text files", "*.txt"), ("all files", "*.*")))
@@ -150,8 +156,7 @@ class Window(Frame):
     def addPingResults(self):
 
         self.text.configure(state="normal")#allow input temporarily so we can enter ping results
-        if self.text.get(1.0, END) is not None:#if there's already ping results displayed in the textbox
-            self.text.delete(1.0, END)#clear the textbox
+
 
         for i in range(len(self.serverList)):
 
@@ -176,13 +181,18 @@ class Window(Frame):
         self.clipboard_append(self.pingResults)
 
     def clearText(self):
+
         self.text.configure(state = "normal")
         self.text.delete(1.0, END)
         self.text.configure(state="disabled")
 
     def updateResults(self):
+        self.clearText()
+        self.pingList.clear()
         self.ping()
+
         self.addPingResults()
+
 
 
 
